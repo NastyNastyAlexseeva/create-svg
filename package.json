@@ -1,0 +1,14 @@
+{
+  "name": "create-svg",
+  "version": "0.0.1",
+  "description": "svg",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "svg"
+  ],
+  "author": "Nastya Alexseeva",
+  "license": "ISC"
+}

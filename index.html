@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Svg</title>
+</head>
+<body>
+    <h1 class="title">SVG</h1>
+    <h3>Attributes svg from js</h3>
+    <div class="circle-svg">
+        <svg id="circle">
+            <circle cx="60" cy="60" r="50"/>
+        </svg>
+    </div>
+    <h3>Attributes svg inline and from js</h3>
+    <div class="attrs-svg">
+        <svg id="attrs-circle" viewBox="0 0 100 100" version="1.1"
+        xmlns="http://www.w3.org/2000/svg" fill='blue' stroke="blue">
+            <circle cx="60" cy="60" r="50"/>
+        </svg>
+    </div>
+    <h3>Attributes svg inline style from js</h3>
+    <div class="inline-style">
+        <svg id="circle-inline-style" viewBox="0 0 100 100" version="1.1"
+        xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="50"/>
+        </svg>
+    </div>
+    <h3>Attributes svg group and elements</h3>
+    <div class="elements-svg">
+        <svg id="elements-group" viewBox="0 0 100 100" version="1.1"
+        xmlns="http://www.w3.org/2000/svg">
+            <circle id='circle'/>
+            <circle id='circle-min'/>
+            <g id="group-1">
+                <circle id='circle-3'/>
+                <g id="group-2">
+                    <circle id='circle-4'/>
+                    <circle id='circle-5'/>
+                </g>
+            </g>
+        </svg>
+    </div>
+    <h3>Bunny attributes from js</h3>
+    <div class="bunny-svg">
+        <svg id="bunny">
+            <circle id='circle-1'/>
+            <path id="path-1"/>
+            <circle id='circle-2'/>
+            <path id="path-2"/>
+            <path style="fill:#FFFFFF;" d="M312.904,341.333l-28.443-34.478l-28.446,34.478l-28.438-34.478l-28.448,34.478l-23.057-27.944
+                c-3.301,13.388-5.16,26.86-5.16,39.583c0,46.992,38.093,85.085,85.085,85.085s85.085-38.095,85.085-85.085
+                c0-13.214-1.674-26.812-4.682-40.124L312.904,341.333z"/>
+            <g>
+                <path style="fill:#E6F3FF;" d="M341.085,352.971c0-13.214-1.674-26.812-4.682-40.124l-23.499,28.486l-28.443-34.478l-27.745,33.628
+                    v97.556C303.378,437.651,341.085,399.722,341.085,352.971z"/>
+                <path style="fill:#E6F3FF;" d="M194.06,120.025c4.149,18.301,24.397,75.967,38.507,86.147c8.34-15.269,1.738-76.029-2.41-94.33
+                    c-4.148-18.301-14.758-33.454-28.869-43.632C192.948,83.478,189.911,101.724,194.06,120.025z"/>
+            </g>
+            <path style="fill:#FF80AA;" d="M199.165,124.333c3.108,13.708,18.275,56.903,28.843,64.528c6.247-11.436,1.302-56.949-1.807-70.658
+                c-3.108-13.708-11.055-25.057-21.623-32.682C198.332,96.958,196.056,110.625,199.165,124.333z"/>
+            <path style="fill:#CFDBE6;" d="M316.426,120.025c-4.149,18.301-24.397,75.967-38.507,86.147c-8.34-15.269-1.738-76.029,2.41-94.33
+                c4.149-18.301,14.758-33.454,28.869-43.632C317.538,83.478,320.576,101.724,316.426,120.025z"/>
+            <path style="fill:#FF6472;" d="M311.322,124.333c-3.108,13.708-18.275,56.903-28.843,64.528
+                c-6.247-11.436-1.302-56.949,1.805-70.658s11.055-25.057,21.623-32.682C312.155,96.958,314.43,110.625,311.322,124.333z"/>
+            <circle style="fill:#FFFFFF;" cx="256.517" cy="225.383" r="63.264"/>
+            <path style="fill:#E6F3FF;" d="M319.785,225.377c0-34.873-28.217-63.152-63.066-63.259v126.517
+                C291.568,288.527,319.785,260.249,319.785,225.377z"/>
+            <circle style="fill:#324A5E;" cx="225.814" cy="234.33" r="3.793"/>
+            <circle style="fill:#2B3B4E;" cx="287.237" cy="234.33" r="3.793"/>
+            <path style="fill:#FF80AA;" d="M267.355,263.397c0,2.274-1.85,4.125-4.125,4.125c-2.272,0-4.124-1.85-4.124-4.125v-25.241h-5.172
+                v25.241c0,2.274-1.85,4.125-4.125,4.125c-2.276,0-4.125-1.85-4.125-4.125h-5.172c0,5.127,4.17,9.297,9.297,9.297
+                c2.643,0,5.017-1.121,6.711-2.894c1.695,1.776,4.068,2.894,6.709,2.894c5.127,0,9.297-4.17,9.297-9.297H267.355z"/>
+            <path style="fill:#FF6472;" d="M267.355,263.397c0,2.274-1.85,4.125-4.125,4.125c-2.272,0-4.124-1.85-4.124-4.125v-25.241h-2.389
+                v31.83c1.679,1.662,3.968,2.708,6.511,2.708c5.127,0,9.297-4.17,9.297-9.297H267.355z"/>
+            <path style="fill:#FD5790;" d="M262.911,234.363c0,3.529-2.862,8.326-6.391,8.326c-3.529,0-6.391-4.798-6.391-8.326
+                c0-3.529,2.862-3.293,6.391-3.293C260.051,231.071,262.911,230.834,262.911,234.363z"/>
+            <path style="fill:#C75163;" d="M262.911,234.363c0-3.462-2.757-3.3-6.192-3.293v11.602
+                C260.156,242.497,262.911,237.825,262.911,234.363z"/>
+        </svg>
+    </div>
+    <h3>Create circle tag in svg</h3>
+    <div class="create-svg">
+        <svg id="create-circle" viewBox="0 0 100 100">
+            <circle id='circle-cr-1'/>
+            <g id="group-cr-1">
+                <!-- <g id="group-cr-2">
+                    <circle id='circle-cr-2'/>
+                </g> -->
+            </g>
+        </svg>
+    </div>
+    <script src="./create-svg.js"></script>
+    <script src="./index.js"></script>
+</body>
+</html>
