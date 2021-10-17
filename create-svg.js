@@ -2,12 +2,11 @@ import { Attributes } from "./attributes";
 import { Constructor } from "./constructor";
 import { mixins } from "./mixins";
 
-export class CreateSvg extends mixins(Constructor, Attributes) {
+export class Svg extends mixins(Constructor, Attributes) {
     constructor(wrapper, params) {
         super(wrapper, params);
 
         this.render();
-
     }
 
     render() {
@@ -15,7 +14,7 @@ export class CreateSvg extends mixins(Constructor, Attributes) {
     }
 
     init() {
-        this.attributes();
+        this.addAttributes();
     }
 
     destroy() {

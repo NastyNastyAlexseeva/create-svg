@@ -1,12 +1,10 @@
 export class Constructor {
     constructor(wrapper, params) {
-        const createSvg = this;
-        this.svg = params.svg;
-        this.elements = params.svg.elements;
+        const { svg, svg: { elements }} = params;
+        
+        this.svg = svg;
+        this.elements = elements;
 
-        createSvg.$wrapper = document.querySelector(wrapper);
-        createSvg.$svg = document.getElementById(createSvg.svg.id);
-
-        createSvg.attrSvg = createSvg.svg.attributes;
+        this.$wrapper = document.querySelector(wrapper);
     }
 }

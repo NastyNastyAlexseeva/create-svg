@@ -1,7 +1,7 @@
-import { CreateSvg } from "./create-svg";
+import { Svg } from "./create-svg";
 
 const createCircle = () => {
-    const circle = new CreateSvg('.circle-svg', {
+    const circle = new Svg('.circle-svg', {
         svg: {
             id: 'circle',
             attributes: {
@@ -15,7 +15,7 @@ const createCircle = () => {
         },
     });
 
-    const attrsCircle = new CreateSvg('.attrs-svg', {
+    const attrsCircle = new Svg('.attrs-svg', {
         svg: {
             id: 'attrs-circle',
             attributes: {
@@ -30,7 +30,7 @@ const createCircle = () => {
         },
     });
 
-    const inlineStyle = new CreateSvg('.inline-style', {
+    const inlineStyle = new Svg('.inline-style', {
         svg: {
             id: 'circle-inline-style',
             attributes: {
@@ -45,7 +45,7 @@ const createCircle = () => {
         },
     });
 
-    const elements = new CreateSvg('.elements-svg', {
+    const elements = new Svg('.elements-svg', {
         svg: {
             id: 'elements-group',
             attributes: {
@@ -146,7 +146,7 @@ const createCircle = () => {
         },
     });
 
-    const bunny = new CreateSvg('.bunny-svg', {
+    const bunny = new Svg('.bunny-svg', {
         svg: {
             id: 'bunny',
             attributes: {
@@ -191,7 +191,7 @@ const createCircle = () => {
         },
     });
 
-    const createCircle = new CreateSvg('.create-svg', {
+    const createCircle = new Svg('.create-svg', {
         svg: {
             id: 'create-circle',
             attributes: {
