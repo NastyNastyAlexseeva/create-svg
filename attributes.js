@@ -19,7 +19,7 @@ export class Attributes extends Constructor {
 
             for(const key in attrs) {
                 $element.setAttribute(key, attrs[key]);
-            }
+            };
         }
     }
 
@@ -43,54 +43,98 @@ export class Attributes extends Constructor {
         }
     }
 
+    setValidationAttributes(attrs) {
+        const {
+            style, // css inline style
+            className, // class name element
+            width, // width element
+            height, // height element
+            fill, // background-color
+            fillOpacity, // background opacity color
+            fillRule, // inside part of a shape
+            strokeWidth, // width border
+            strokeDasharray, // border style
+            strokeDashoffset, // offset on the rendering of the associated dash array
+            strokeLinecap, // shape to be used at the end of open subpaths they are stroked
+            strokeLinejoin, // shape to be used at the corners of paths when they are stroked
+            strokeMiterlimit, // defining a limit on the ratio of the miter length to the stroke-width used to draw a miter join
+            strokeOpacity, // border opacity
+            stroke // border color
+        } = attrs;
+
+        Object.assign(attrs, {
+            style: this.setValidation(style),
+            class: this.setValidation(className),
+            width: this.setValidation(width, ['string', 'number']),
+            height: this.setValidation(height, ['string', 'number']),
+            fill: this.setValidation(fill),
+            'fill-opacity': this.setValidation(fillOpacity, ['string', 'number']),
+            'fill-rule': this.setValidation(fillRule, [], ['nonzero', 'evenodd']),
+            'stroke-width': this.setValidation(strokeWidth, ['string', 'number']),
+            'stroke-dasharray': this.setValidation(strokeDasharray),
+            'stroke-dashoffset': this.setValidation(strokeDashoffset, ['string', 'number']),
+            'stroke-linecap': this.setValidation(strokeLinecap, [], ['butt', 'round', 'square']),
+            'stroke-linejoin': this.setValidation(strokeLinejoin, [], ['arcs', 'bevel', 'miter', 'miter-clip', 'round']),
+            'stroke-miterlimit': this.setValidation(strokeMiterlimit, ['number']),
+            'stroke-opacity': this.setValidation(strokeOpacity),
+            stroke: this.setValidation(stroke),
+        })
+
+        this.deleteInvalidAttributes(attrs);
+
+        return attrs;
+    }
+
     setValidationAttributesSvg(attrs) {
-        const { version, xmlns, viewBox, style, className,  width, height, fill, strokeWidth, strokeDasharray, strokeDashoffset, stroke } = attrs;
+        const {
+            version, // svg version, default 1.1
+            xmlns, // svg path, default http://www.w3.org/2000/svg
+            viewBox, // position and dimension, in user space, of an SVG viewport
+        } = attrs;
 
         Object.assign(attrs, {
             version: this.setValidation(version) ?? '1.1',
             xmlns: this.setValidation(xmlns) ?? "http://www.w3.org/2000/svg",
             viewBox: this.setValidation(viewBox),
-            style: this.setValidation(style),
-            class: this.setValidation(className),
-            width: this.setValidation(width, ['string', 'number']),
-            height: this.setValidation(height, ['string', 'number']),
-            fill:  this.setValidation(fill),
-            'stroke-width': this.setValidation(strokeWidth, ['string', 'number']),
-            'stroke-dasharray': this.setValidation(strokeDasharray),
-            'stroke-dashoffset': this.setValidation(strokeDashoffset, ['string', 'number']),
-            stroke: this.setValidation(stroke),
-        })
+        }, this.setValidationAttributes(attrs));
 
+        // delete CamelCase attributes
         delete attrs.strokeWidth;
         delete attrs.className;
+        delete attrs.strokeLinecap;
+        delete attrs.strokeLinejoin;
+        delete attrs.strokeMiterlimit;
+        delete attrs.fillRule;
+        delete attrs.strokeDasharray;
+        delete attrs.strokeDashoffset;
+        delete attrs.strokeOpacity;
+        delete attrs.fillOpacity;
         this.deleteInvalidAttributes(attrs);
     }
 
     setValidationAttributesElement(attrs) {
-        const { style, className, width, height, fill, fillRule, strokeWidth, stroke, strokeDasharray, strokeDashoffset, x, y, cx, cy, r, d } = attrs;
+        const {
+            x, // x-axis coordinate in the user coordinate system
+            y, // y-axis coordinate in the user coordinate system
+            cx, // circle and ellipse the x-axis coordinate of a center point
+            cy, // circle and ellipse the y-axis coordinate of a center point
+            r, // circle radius
+            rx, // ellipse and rect radius on the x-axis
+            ry, // ellipse and rect radius on the y-axis
+            d // path coordinates
+        } = attrs;
 
         Object.assign(attrs, {
-            style: this.setValidation(style),
-            class: this.setValidation(className),
-            width: this.setValidation(width, ['string', 'number']),
-            height: this.setValidation(height, ['string', 'number']),
-            fill:  this.setValidation(fill),
-            'fill-rule': this.setValidation(fillRule, [], ['nonzero', 'evenodd']),
-            'stroke-width': this.setValidation(strokeWidth, ['string', 'number']),
-            'stroke-dasharray': this.setValidation(strokeDasharray),
-            'stroke-dashoffset': this.setValidation(strokeDashoffset, ['string', 'number']),
-            stroke: this.setValidation(stroke),
             x: this.setValidation(x, ['string', 'number']),
             y: this.setValidation(y, ['string', 'number']),
             cx: this.setValidation(cx, ['string', 'number']),
             cy: this.setValidation(cy, ['string', 'number']),
             r: this.setValidation(r, ['string', 'number']),
+            rx: this.setValidation(rx, ['string', 'number']),
+            ry: this.setValidation(ry, ['string', 'number']),
             d: this.setValidation(d),
-        })
+        }, this.setValidationAttributes(attrs));
 
-        delete attrs.fillRule;
-        delete attrs.strokeDasharray;
-        delete attrs.strokeDashoffset;
         this.deleteInvalidAttributes(attrs);
     }
 
@@ -116,14 +160,14 @@ export class Attributes extends Constructor {
                 console.error(errorMessage);
 
                 return null;
-            };
-        };
+            }
+        }
 
     }
 
     deleteInvalidAttributes(attrs) {
         for(const key in attrs) {
             if(!attrs[key]) delete attrs[key];
-        }
+        };
     }
 }
