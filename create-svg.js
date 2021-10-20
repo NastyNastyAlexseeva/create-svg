@@ -1,6 +1,4 @@
-import { Attributes } from "./mixins/attributes";
-import { Create } from "./mixins/create";
-
+import { Attributes, Create } from "./mixins";
 import { mixins, mutationObserver } from "./libs";
 
 export class Svg extends mixins(Attributes, Create) {
