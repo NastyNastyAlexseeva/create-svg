@@ -1,19 +1,17 @@
-import { Constructor } from "./constructor";
+export class Attributes {
+    constructor(selector, params) {
 
-export class Attributes extends Constructor {
-    constructor(wrapper, params) {
-        super(wrapper, params);
     }
 
-    addAttributes() {
-        const { elements, svg } = this;
-        this.setAttributes(svg.id, svg.attributes);
-        this.setElementsAttributes(elements);
+    attributes() {
+        const { elements, svg, svgSelector } = this;
+
+        this.setAddAttributes(svgSelector, svg.attributes);
+        this.setAddElementsAttributes(elements);
     }
 
-    setAttributes(id, attrs) {
-        const $element = document.getElementById(id);
-
+    setAddAttributes(selector, attrs) {
+        const $element = document.querySelector(selector) ?? document.getElementById(selector);
         if($element && attrs && Object.keys(attrs).length) {
             this.setValidationAttributesSvg(attrs);
 
@@ -23,17 +21,15 @@ export class Attributes extends Constructor {
         }
     }
 
-    setElementsAttributes(elements) {
-        if(elements && elements.length) {
-            const watchElements = (element) => {
-                element.map(nestedEl => {
-                    const { attributes, elements, id } = nestedEl;
+    setAddElementsAttributes(elements) {
+        if(elements && Array.isArray(elements) && elements.length) {
+            const watchElements = (list) => {
+                list.map(item => {
+                    const { attributes, elements, id } = item;
 
                     this.setValidationAttributesElement(attributes);
-
-                    if(!elements || !elements.length) {
-                        this.setAttributes(id, attributes);
-                    } else {
+                    this.setAddAttributes(id, attributes);
+                    if(elements && elements.length) {
                         watchElements(elements);
                     }
                 });
