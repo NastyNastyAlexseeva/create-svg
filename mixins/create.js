@@ -25,14 +25,13 @@ export class Create {
     }
 
     setCreateElements(svg) {
-
-        const { elements, id } = svg;
+        const { elements } = svg;
 
         if(elements && Array.isArray(elements) && elements.length) {
             const watchElements = (list) => {
                 list.forEach(item => {
-                    const { isCreate, elements, id, tag, attributes } = item;
-                    const parrentId = this.searchParentId(this.svg, id);
+                    const { isCreate, elements, id, tag } = item;
+                    const parrentId = Create.searchParentId(this.svg, id);
 
                     if(isCreate) {
                         if(elements && elements.length) {
@@ -53,7 +52,7 @@ export class Create {
         }
     }
 
-    searchParentId(svg, childId) {
+    static searchParentId(svg, childId) {
         let parrentId = null;
 
         const watchElements = (list) => {

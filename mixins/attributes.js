@@ -58,25 +58,27 @@ export class Attributes {
             stroke // border color
         } = attrs;
 
+        const { setValidation, deleteInvalidAttributes } = Attributes;
+
         Object.assign(attrs, {
-            style: this.setValidation(style),
-            class: this.setValidation(className),
-            width: this.setValidation(width, ['string', 'number']),
-            height: this.setValidation(height, ['string', 'number']),
-            fill: this.setValidation(fill),
-            'fill-opacity': this.setValidation(fillOpacity, ['string', 'number']),
-            'fill-rule': this.setValidation(fillRule, [], ['nonzero', 'evenodd']),
-            'stroke-width': this.setValidation(strokeWidth, ['string', 'number']),
-            'stroke-dasharray': this.setValidation(strokeDasharray),
-            'stroke-dashoffset': this.setValidation(strokeDashoffset, ['string', 'number']),
-            'stroke-linecap': this.setValidation(strokeLinecap, [], ['butt', 'round', 'square']),
-            'stroke-linejoin': this.setValidation(strokeLinejoin, [], ['arcs', 'bevel', 'miter', 'miter-clip', 'round']),
-            'stroke-miterlimit': this.setValidation(strokeMiterlimit, ['number']),
-            'stroke-opacity': this.setValidation(strokeOpacity),
-            stroke: this.setValidation(stroke),
+            style: setValidation(style),
+            class: setValidation(className),
+            width: setValidation(width, ['string', 'number']),
+            height: setValidation(height, ['string', 'number']),
+            fill: setValidation(fill),
+            'fill-opacity': setValidation(fillOpacity, ['string', 'number']),
+            'fill-rule': setValidation(fillRule, [], ['nonzero', 'evenodd']),
+            'stroke-width': setValidation(strokeWidth, ['string', 'number']),
+            'stroke-dasharray': setValidation(strokeDasharray),
+            'stroke-dashoffset': setValidation(strokeDashoffset, ['string', 'number']),
+            'stroke-linecap': setValidation(strokeLinecap, [], ['butt', 'round', 'square']),
+            'stroke-linejoin': setValidation(strokeLinejoin, [], ['arcs', 'bevel', 'miter', 'miter-clip', 'round']),
+            'stroke-miterlimit': setValidation(strokeMiterlimit, ['number']),
+            'stroke-opacity': setValidation(strokeOpacity),
+            stroke: setValidation(stroke),
         })
 
-        this.deleteInvalidAttributes(attrs);
+        deleteInvalidAttributes(attrs);
 
         return attrs;
     }
@@ -88,10 +90,12 @@ export class Attributes {
             viewBox, // position and dimension, in user space, of an SVG viewport
         } = attrs;
 
+        const { setValidation, deleteInvalidAttributes } = Attributes;
+
         Object.assign(attrs, {
-            version: this.setValidation(version) ?? '1.1',
-            xmlns: this.setValidation(xmlns) ?? "http://www.w3.org/2000/svg",
-            viewBox: this.setValidation(viewBox),
+            version: setValidation(version) ?? '1.1',
+            xmlns: setValidation(xmlns) ?? "http://www.w3.org/2000/svg",
+            viewBox: setValidation(viewBox),
         }, this.setValidationAttributes(attrs));
 
         // delete CamelCase attributes
@@ -105,7 +109,7 @@ export class Attributes {
         delete attrs.strokeDashoffset;
         delete attrs.strokeOpacity;
         delete attrs.fillOpacity;
-        this.deleteInvalidAttributes(attrs);
+        deleteInvalidAttributes(attrs);
     }
 
     setValidationAttributesElement(attrs) {
@@ -120,21 +124,23 @@ export class Attributes {
             d // path coordinates
         } = attrs;
 
+        const { setValidation, deleteInvalidAttributes } = Attributes;
+
         Object.assign(attrs, {
-            x: this.setValidation(x, ['string', 'number']),
-            y: this.setValidation(y, ['string', 'number']),
-            cx: this.setValidation(cx, ['string', 'number']),
-            cy: this.setValidation(cy, ['string', 'number']),
-            r: this.setValidation(r, ['string', 'number']),
-            rx: this.setValidation(rx, ['string', 'number']),
-            ry: this.setValidation(ry, ['string', 'number']),
-            d: this.setValidation(d),
+            x: setValidation(x, ['string', 'number']),
+            y: setValidation(y, ['string', 'number']),
+            cx: setValidation(cx, ['string', 'number']),
+            cy: setValidation(cy, ['string', 'number']),
+            r: setValidation(r, ['string', 'number']),
+            rx: setValidation(rx, ['string', 'number']),
+            ry: setValidation(ry, ['string', 'number']),
+            d: setValidation(d),
         }, this.setValidationAttributes(attrs));
 
-        this.deleteInvalidAttributes(attrs);
+        deleteInvalidAttributes(attrs);
     }
 
-    setValidation(value, types = ['string'], validValues = []) {
+    static setValidation(value, types = ['string'], validValues = []) {
         let errorMessage = '';
 
         if(!types.length) types.push('string');
@@ -161,7 +167,7 @@ export class Attributes {
 
     }
 
-    deleteInvalidAttributes(attrs) {
+    static deleteInvalidAttributes(attrs) {
         for(const key in attrs) {
             if(!attrs[key]) delete attrs[key];
         };

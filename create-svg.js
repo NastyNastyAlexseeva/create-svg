@@ -10,11 +10,11 @@ export class Svg extends mixins(Attributes, Create) {
     }
 
     render() {
+        this.observer(this.svg.parrentId ?`#${this.svg.parrentId}` : this.selector);
         this.init();
     }
 
     init() {
-        this.observer(this.svg.parrentId ?`#${this.svg.parrentId}` : this.selector);
         this.attributes();
         this.create();
     }
