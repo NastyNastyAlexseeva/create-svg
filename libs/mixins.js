@@ -1,9 +1,10 @@
 export const mixins = (...mixins) => {
     class Base {
-        constructor (selector, params) {
-            this.svgSelector = params.id ?? selector;
-            this.svg = params;
-            this.elements = params.elements ?? [];
+        constructor (svg) {
+            this.id = svg.id;
+            this.svg = svg;
+            this.elements = svg.elements ?? [];
+            this.textList = svg.textList ?? [];
 
             mixins.forEach((mixin) => {
                 copyProps(this, mixin.prototype);

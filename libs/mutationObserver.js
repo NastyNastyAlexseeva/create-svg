@@ -7,5 +7,5 @@ export const mutationObserver = (idNode, callback) => {
     return mutation.observe(idNode, {
         childList: true,
         subtree: true,
-    })
+    });
 }

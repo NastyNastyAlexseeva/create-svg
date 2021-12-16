@@ -10,7 +10,7 @@ import { Svg } from "./create-svg";
 // }
 
 const createCircle = () => {
-    const circle = new Svg('.circle-class', {
+    const circle = new Svg({
         id: 'circleSvg',
         attributes: {
             width: 300,
@@ -22,7 +22,7 @@ const createCircle = () => {
         }
     });
 
-    const attrsCircle = new Svg('#attrs-circle', {
+    const attrsCircle = new Svg({
         id: 'attrs-circle',
         attributes: {
             version: '1.0',
@@ -35,8 +35,8 @@ const createCircle = () => {
         }
     });
 
-    const inlineStyle = new Svg('#circle-inline-style', {
-        id: 'circle-inline-style',
+    const inlineStyle = new Svg({
+        id:'circle-inline-style',
         attributes: {
             version: '1.1',
             xmlns: "http://www.w3.org/2000/svg",
@@ -48,8 +48,8 @@ const createCircle = () => {
         }
     });
 
-    const elements = new Svg('#elements-group', {
-        id: 'elements-group',
+    const elements = new Svg({
+        id:'elements-group',
         attributes: {
             version: '1.1',
             xmlns: "http://www.w3.org/2000/svg",
@@ -146,7 +146,7 @@ const createCircle = () => {
         ]
     });
 
-    const bunny = new Svg('#bunny', {
+    const bunny = new Svg({
         id: 'bunny',
         attributes: {
             version: '1.1',
@@ -190,7 +190,7 @@ const createCircle = () => {
         ]
     });
 
-    const createCircleSvg = new Svg('#create-circle', {
+    const createCircleSvg = new Svg({
         id: 'create-circle',
         attributes: {
             version: '1.1',
@@ -257,17 +257,15 @@ const createCircle = () => {
         ]
     });
 
-    const create = new Svg('.create-svg', {
+    const create = new Svg({
         id: 'create',
         isCreate: true,
-        parrentId: 'wrapper-create',
+        wrapper: 'wrapper-create',
         attributes: {
             viewBox: '0 0 120 120',
-            width: 300,
+            width: 500,
             height: 300,
             fill: '#000',
-            stroke: 'red',
-            strokeWidth: 1,
         },
         elements: [
             {
@@ -279,11 +277,55 @@ const createCircle = () => {
                     cy: 10,
                     r: 50,
                     fill: 'green',
-                    stroke: '#000',
+                    stroke: 'red',
                     strokeWidth: 1,
                 },
-            },
+            }
         ],
+        // create text in svg
+        textList: [
+            {
+                id: 'text',
+                wrapper: 'create',
+                // text: 'hello',
+                text: 'hello, <tspan id="subtext1">This is bold and red.</tspan> I am <tspan id="subtext2">banana!</tspan>',
+                attributes: {
+                    x: "70",
+                    y: 20,
+                    fill: 'green',
+                    style: 'font-size: 10px;',
+                },
+                subTextList: [ //tspan
+                    {
+                        id: 'subtext1',
+                        className: 'subtextclass1',
+                        attributes: {
+                            fill: 'blue',
+                            style: 'color: red',
+                        }
+                    },
+                    {   
+                        id: 'subtext2',
+                        attributes: {
+                            fill: 'orange',
+                            style: 'color: yellow',
+                        }
+                    }
+                ]
+            },
+            // {
+            //     id: 'text-2',
+            //     wrapper: '#create',
+            //     text: 'hello 2',
+            //     attributes: {
+            //         x: "70",
+            //         y: 20,
+            //         fill: 'green',
+            //         stroke: '#000',
+            //         strokeWidth: 1,
+            //     }
+            // }
+        ]
     });
 }
 

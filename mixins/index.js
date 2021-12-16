@@ -1,7 +1,9 @@
 import { Attributes } from './attributes';
-import { Create } from './create';
+import { CreateElements } from './createElements';
+import { Text } from './text';
 
 export {
     Attributes,
-    Create,
+    CreateElements,
+    Text,
 }

@@ -1,26 +1,26 @@
-import { Attributes, Create } from "./mixins";
+import { Attributes, CreateElements, Text } from "./mixins";
 import { mixins, mutationObserver } from "./libs";
 
-export class Svg extends mixins(Attributes, Create) {
-    constructor(selector, params) {
-        super(selector, params);
-        this.selector = selector;
-
+export class Svg extends mixins(Attributes, CreateElements, Text) {
+    constructor(svg) {
+        super(svg);
+        this.svg = svg;
         this.render();
     }
 
     render() {
-        this.observer(this.svg.parrentId ?`#${this.svg.parrentId}` : this.selector);
+        this.observer(this.svg.id);
         this.init();
     }
 
     init() {
         this.attributes();
         this.create();
+        this.text();
     }
 
-    observer(selector) {
-        let $element = document.querySelector(selector);
+    observer(id) {
+        const $element = document.getElementById(id);
         mutationObserver($element, this.attributes.bind(this));
     }
 

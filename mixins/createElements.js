@@ -1,26 +1,21 @@
-export class Create {
-    constructor(selector, params) {
+import { createSvgNode } from "../libs";
+import { NS } from '../libs/constants';
+
+export class CreateElements {
+    constructor(svg) {
 
     }
 
     create() {
         this.setCreateSvg(this.svg);
         this.setCreateElements(this.svg);
-    }
-
-    createNodeElement(id, tag, parrentId) {
-        const ns = 'http://www.w3.org/2000/svg';
-
-        const $newElement = document.createElementNS(ns, tag);
-        const $parrent = document.getElementById(parrentId);
-        $newElement.id = id;
-        $parrent.appendChild($newElement);
+        this.setCreateDefsNode(this.svg.id);
     }
 
     setCreateSvg(svg) {
-        const { id, parrentId } = svg;
-        if(id && parrentId) {
-            this.createNodeElement(id, 'svg', parrentId);
+        const { id, wrapper } = svg;
+        if(id && wrapper) {
+            createSvgNode(id, 'svg', wrapper);
         }
     }
 
@@ -31,14 +26,14 @@ export class Create {
             const watchElements = (list) => {
                 list.forEach(item => {
                     const { isCreate, elements, id, tag } = item;
-                    const parrentId = Create.searchParentId(this.svg, id);
+                    const parrentId = CreateElements.searchParentId(svg);
 
                     if(isCreate) {
                         if(elements && elements.length) {
-                            this.createNodeElement(id, tag, parrentId);
+                            createSvgNode(id, tag, parrentId);
                             watchElements(elements);
                         } else {
-                            this.createNodeElement(id, tag, parrentId);
+                            createSvgNode(id, tag, parrentId);
                         }
                     } else {
                         if(elements && elements.length) {
@@ -52,7 +47,17 @@ export class Create {
         }
     }
 
-    static searchParentId(svg, childId) {
+    setCreateDefsNode(id) {
+        const $svg = document.getElementById(id);
+        const $isNotDefs = !$svg.getElementsByTagNameNS(NS, 'defs') || !$svg.getElementsByTagNameNS(NS, 'defs').length;
+        const $defs = document.createElementNS(NS, 'defs');
+        
+        if($svg && $isNotDefs) {
+            $svg.prepend($defs);
+        };
+    }
+
+    static searchParentId(childId) {
         let parrentId = null;
 
         const watchElements = (list) => {
@@ -77,7 +82,7 @@ export class Create {
 
         };
 
-        watchElements(svg);
+        watchElements(childId);
         return parrentId;
     }
 }

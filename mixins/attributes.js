@@ -1,17 +1,18 @@
 export class Attributes {
-    constructor(selector, params) {
+    constructor(svg) {
 
     }
 
     attributes() {
-        const { elements, svg, svgSelector } = this;
+        const { elements, svg, id, textList } = this;
 
-        this.setAddAttributes(svgSelector, svg.attributes);
+        this.setAddAttributes(id, svg.attributes);
         this.setAddElementsAttributes(elements);
+        this.setAddTextAttributes(textList);
     }
 
-    setAddAttributes(selector, attrs) {
-        const $element = document.querySelector(selector) ?? document.getElementById(selector);
+    setAddAttributes(id, attrs) {
+        const $element = document.getElementById(id);
         if($element && attrs && Object.keys(attrs).length) {
             this.setValidationAttributesSvg(attrs);
 
@@ -36,6 +37,24 @@ export class Attributes {
             };
 
             watchElements(elements);
+        }
+    }
+    
+    setAddTextAttributes(textList) {
+        if(textList && Array.isArray(textList) && textList.length) {
+            textList.forEach(text => {
+                const { id, attributes, subTextList } = text;
+
+                subTextList?.forEach(subText => {
+                    const { id, attributes } = subText;
+
+                    this.setValidationAttributesText(attributes);
+                    this.setAddAttributes(id, attributes);
+                })
+
+                this.setValidationAttributesText(attributes);
+                this.setAddAttributes(id, attributes);
+            })
         }
     }
 
@@ -85,16 +104,16 @@ export class Attributes {
 
     setValidationAttributesSvg(attrs) {
         const {
-            version, // svg version, default 1.1
-            xmlns, // svg path, default http://www.w3.org/2000/svg
+            version, // svg version
+            xmlns, // svg path
             viewBox, // position and dimension, in user space, of an SVG viewport
         } = attrs;
 
         const { setValidation, deleteInvalidAttributes } = Attributes;
 
         Object.assign(attrs, {
-            version: setValidation(version) ?? '1.1',
-            xmlns: setValidation(xmlns) ?? "http://www.w3.org/2000/svg",
+            version: setValidation(version),
+            xmlns: setValidation(xmlns),
             viewBox: setValidation(viewBox),
         }, this.setValidationAttributes(attrs));
 
@@ -109,6 +128,7 @@ export class Attributes {
         delete attrs.strokeDashoffset;
         delete attrs.strokeOpacity;
         delete attrs.fillOpacity;
+        delete attrs.textAnchor;
         deleteInvalidAttributes(attrs);
     }
 
@@ -135,6 +155,35 @@ export class Attributes {
             rx: setValidation(rx, ['string', 'number']),
             ry: setValidation(ry, ['string', 'number']),
             d: setValidation(d),
+        }, this.setValidationAttributes(attrs));
+
+        deleteInvalidAttributes(attrs);
+    }
+
+    setValidationAttributesText(attrs) {
+        const {
+            x, // x-axis coordinate in the user coordinate system
+            y, // y-axis coordinate in the user coordinate system
+            dx, // x-axis on the position of an element or its content
+            dy, // y-axis on the position of an element or its content
+            rotate, // animated element rotates
+            textLength, // lets you specify the width of the space into which the text will draw
+            textAnchor, // align
+            lengthAdjust, // controls how the text is stretched into the length defined by the textLength
+        } = attrs;
+
+        const { setValidation, deleteInvalidAttributes } = Attributes;
+
+        Object.assign(attrs, {
+            x: setValidation(x, ['string', 'number']),
+            y: setValidation(y, ['string', 'number']),
+            dx: setValidation(dx, ['string', 'number']),
+            dy: setValidation(dy, ['string', 'number']),
+            rotate: setValidation(rotate, ['number'], ['auto', 'auto-reverse']),
+            textLength: setValidation(textLength, ['number']),
+            rotate: setValidation(rotate, ['number'], ['auto', 'auto-reverse']),
+            'text-anchor': setValidation(textAnchor, [], ['start', 'middle', 'end', 'inherit']),
+            lengthAdjust: setValidation(lengthAdjust, [], ['auto', 'spacing', 'spacingAndGlyphs']),
         }, this.setValidationAttributes(attrs));
 
         deleteInvalidAttributes(attrs);
